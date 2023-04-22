@@ -1,0 +1,83 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: This template is partially managed by Amazon.Lambda.Annotations (v0.13.1.0).
+Resources:
+  DevelopersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: N
+      KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+      TableName: developers
+      BillingMode: PAY_PER_REQUEST
+  HelloWorldFunctionGetCallingIpFunctionGenerated:
+    Type: AWS::Serverless::Function
+    Metadata:
+      SamResourceId: HelloWorldFunctionGetCallingIpFunctionGenerated
+      SyncedEvents:
+      - RootGet
+      Tool: Amazon.Lambda.Annotations
+    Properties:
+      Runtime: dotnet6
+      CodeUri: HelloWorldFunctionGetCallingIpFunctionGenerated
+      MemorySize: 256
+      Timeout: 30
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      PackageType: Zip
+      Handler: HelloWorld::HelloWorld.Function_GetCallingIpFunction_Generated::GetCallingIpFunction
+      Events:
+        RootGet:
+          Type: HttpApi
+          Properties:
+            Path: /hello/{name}
+            Method: GET
+  HelloWorldFunctionCreateDeveloperGenerated:
+    Type: AWS::Serverless::Function
+    Metadata:
+      SamResourceId: HelloWorldFunctionCreateDeveloperGenerated
+      SyncedEvents:
+      - RootPost
+      Tool: Amazon.Lambda.Annotations
+    Properties:
+      Runtime: dotnet6
+      CodeUri: HelloWorldFunctionCreateDeveloperGenerated
+      MemorySize: 256
+      Timeout: 30
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AmazonDynamoDBFullAccess
+      PackageType: Zip
+      Handler: HelloWorld::HelloWorld.Function_CreateDeveloper_Generated::CreateDeveloper
+      Events:
+        RootPost:
+          Type: HttpApi
+          Properties:
+            Path: /developers
+            Method: POST
+  HelloWorldFunctionGetDeveloperGenerated:
+    Type: AWS::Serverless::Function
+    Metadata:
+      SamResourceId: HelloWorldFunctionGetDeveloperGenerated
+      SyncedEvents:
+      - RootGet
+      Tool: Amazon.Lambda.Annotations
+    Properties:
+      Runtime: dotnet6
+      CodeUri: HelloWorldFunctionGetDeveloperGenerated
+      MemorySize: 256
+      Timeout: 30
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AmazonDynamoDBFullAccess
+      PackageType: Zip
+      Handler: HelloWorld::HelloWorld.Function_GetDeveloper_Generated::GetDeveloper
+      Events:
+        RootGet:
+          Type: HttpApi
+          Properties:
+            Path: /developers/{id}
+            Method: GET
